@@ -1,18 +1,34 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <card-box class="container top" title="武将" path="../lib_character" type="character" />
+    <card-box class="container" title="游戏牌" path="../lib_card" type="card" />
+    <!-- <img alt="Vue logo" src="../assets/logo.png"> -->
+    <div class="end"></div>
   </div>
 </template>
 
-<script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+<script setup>
+import CardBox from '@/components/CardBox.vue';
 
-export default {
-  name: 'HomeView',
-  components: {
-    HelloWorld
-  }
+function mounted() {
+    document.title = "理工杀维基";
 }
+
 </script>
+
+
+<style scoped>
+.home {
+  /* background-color: #f5f5f5; */
+  height: 100%;
+}
+
+.card-box {
+  background-color: #ffffff;
+  margin-top: 20px;
+}
+
+.top {
+  margin-top: 0px;
+}
+</style>
