@@ -26,11 +26,13 @@
                         </div>
                         <p class="p-title"><b>技能：</b></p>
                         <div id="span4">
-                            <p class="p-skill" v-for="(item, index) in info[chara][3]" :key="index" 
-                            v-html="`<b>${trans[item]}</b>：${trans[item+'_info']}`"
-                            :class="{'top': index === 0}"></p>
-                            <p class="p-skill p-skill-to-gain" v-for="(item, index) in info[chara][4]" :key="index" 
-                            v-html="`<b>${trans[item]}</b>：${trans[item+'_info']}`"></p>
+                            <el-scrollbar max-height="220px">
+                                <p class="p-skill" v-for="(item, index) in info[chara][3]" :key="index" 
+                                v-html="`<b>${trans[item]}</b>：${trans[item+'_info']}`"
+                                :class="{'top': index === 0}"></p>
+                                <p class="p-skill p-skill-to-gain" v-for="(item, index) in info[chara][4]" :key="index" 
+                                v-html="`<b>${trans[item]}</b>：${trans[item+'_info']}`"></p>
+                            </el-scrollbar>
                         </div>
                     </div>
                 </div>
@@ -40,13 +42,17 @@
                     <h2 class="title">武将选择</h2>
                 </div>
                 <div class="box-body">
-                    <ul class="side-card-list">
-                        <li v-for="(item, index) in charas" :key="index">
-                            <router-link :to="`/characterIntroduction/${item}`" >
-                                <card-li :name="item" :trans="trans[item]"/>
-                            </router-link>
-                        </li>
-                    </ul>
+                    <div id="span5">
+                        <el-scrollbar max-height="340px">
+                            <ul class="side-card-list">
+                                <li v-for="(item, index) in charas" :key="index">
+                                    <router-link :to="`/characterIntroduction/${item}`" >
+                                        <card-li :name="item" :trans="trans[item]"/>
+                                    </router-link>
+                                </li>
+                            </ul>
+                        </el-scrollbar>
+                    </div>
                 </div>
             </div>
         </div>
@@ -55,7 +61,7 @@
 </template>
 
 <script setup>
-import { ref, reactive, computed } from 'vue'
+import { ref, reactive, computed, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import CardLi from '@/components/CardLi.vue'
 import characters from '@/lib_character'
@@ -70,10 +76,22 @@ const maxHp = computed(() => (typeof info[chara.value][2] == "string" ? parseInt
 
 const charas = reactive(Object.keys(info).sort())
 
-function onCharaChange() {
-    console.log(route.params.chara);
-    chara.value = route.params.chara;
+function onCardLinkClick(card) {
+  router.push('/cardIntroduction/huanjuyitang');
 }
+function onMouseenterCardLink(id) {
+    document.getElementById(id).classList.add("mouse-on");
+}
+function onMouseleaveCardLink(id) {
+    document.getElementById(id).classList.remove("mouse-on");
+}
+
+
+onMounted(() => {
+  window.onCardLinkClick = onCardLinkClick;
+  window.onMouseenterCardLink = onMouseenterCardLink;
+  window.onMouseleaveCardLink = onMouseleaveCardLink;
+})
 
 </script>
 
@@ -127,7 +145,12 @@ function onCharaChange() {
     max-height: 220px;
     margin-top: 16px;
     align-items: center;
-    overflow-y: auto;
+    /* overflow-y: auto; */
+}
+
+#span5 {
+    margin-left: 56px;
+    margin-top: 36px;
 }
 
 .big-image {
@@ -159,4 +182,17 @@ function onCharaChange() {
 .top {
     margin-top: 0px;
 }
+</style>
+
+<style>
+    .card-link-in-line {
+        color: #2c3e50;
+        text-decoration: none;
+    }
+
+    .mouse-on {
+        color: #0084ff;
+        /* text-decoration: underline; */
+        font-style: italic;
+    }
 </style>

@@ -1,24 +1,39 @@
 <template>
-  
   <div class="header background">
     <div class="site-topbar">
       <div class="container">
         <h1>理工杀维基</h1>
         <nav>
-          <router-link to="/">首页</router-link> |
-          <router-link to="/characterIntroduction/lgs_chenyaoshi">武将</router-link> |
-          <router-link to="/cardIntroduction/huanjuyitang">游戏牌</router-link>
+          <router-link to="/" :class="{ 'active': $route.path === '/' }">首页</router-link> |
+          <router-link to="/characterIntroduction/lgs_chenyaoshi"
+            :class="{ 'active': $route.name === 'characterIntroduction' }">武将</router-link> |
+          <router-link to="/cardIntroduction/huanjuyitang"
+            :class="{ 'active': $route.name === 'cardIntroduction' }">游戏牌</router-link>
         </nav>
       </div>
     </div>
     <div class="site-header">
       <div class="container form">
-          <input id="searcher" type="text" placeholder="请输入武将或卡牌名称信息">
+        <input id="searcher" type="text" placeholder="搜索武将或游戏牌名称">
       </div>
     </div>
   </div>
-  <router-view/>
+  <router-view />
 </template>
+
+<script setup>
+import { onMounted } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
+
+const $route = useRoute()
+const router = useRouter()
+function onCardLinkClick(card) {
+  router.push(`/cardIntroduction/${card}`);
+}
+onMounted(() => {
+  window.onCardLinkClick = onCardLinkClick;
+})
+</script>
 
 <style>
 * {
@@ -26,12 +41,14 @@
   padding: 0px;
 }
 
-div, ul {
+div,
+ul {
   overflow: hidden;
   clear: both;
 }
 
-html, body {
+html,
+body {
   height: 100%;
 }
 
@@ -44,10 +61,6 @@ html, body {
   background-color: #f5f5f5;
   min-height: 100vh;
 }
-
-/* .background {
-  background-color: #f5f5f5;
-} */
 
 .header {
   background-color: #f5f5f5;
@@ -65,35 +78,39 @@ html, body {
   margin-bottom: 0px;
   margin-left: 4px;
   font-size: 24px;
-  line-height:44px;
+  line-height: 44px;
 }
 
 nav {
   float: right;
   margin-right: 8px;
-  
+
   font-size: 20px;
-  line-height:44px;
+  line-height: 44px;
 }
 
 nav a {
   color: #b0b0b0;
+  text-decoration: none;
 }
 
-nav a.router-link-exact-active {
-  /* color: #42b983; */
+/* nav a.router-link-exact-active {
+  font-weight: bold;
+} */
+
+nav .active {
   font-weight: bold;
 }
 
 #searcher {
-    height: 44px;
-    width: 300px;
-    border-radius: 26px;
-    margin-top: 40px;
-    margin-bottom: 40px;
-    margin-left: auto;
-    margin-right: auto;
-    text-align: center;
+  height: 44px;
+  width: 300px;
+  border-radius: 26px;
+  margin-top: 40px;
+  margin-bottom: 40px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
 }
 
 .box {
@@ -103,34 +120,31 @@ nav a.router-link-exact-active {
 }
 
 .box-header h2 {
-    float: left;
-    margin-top: 18px;
-    margin-bottom: 0px;
-    margin-left: 30px;
-    font-size: 30px;
+  float: left;
+  margin-top: 18px;
+  margin-bottom: 0px;
+  margin-left: 30px;
+  font-size: 30px;
 }
 
 .side-card-list {
-    list-style: none;
-    max-height: 340px;
-    margin-left: 56px;
-    margin-top: 36px;
-    overflow-y: auto;
-    clear: both;
+  list-style: none;
+  /* overflow-y: auto; */
+  clear: both;
 }
 
 .side-card-list li {
-    float: left;
-    margin-right: 18px;
-    margin-bottom: 18px;
+  float: left;
+  margin-right: 18px;
+  margin-bottom: 18px;
 }
 
-a, a:link {
-    text-decoration: none;
+.side-card-list a {
+  text-decoration: none;
 }
 
 .flex {
-    display: flex;
+  display: flex;
 }
 
 .end {
@@ -150,5 +164,4 @@ a, a:link {
 .red {
   color: #ff0000;
 }
-
 </style>

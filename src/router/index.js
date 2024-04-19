@@ -26,7 +26,11 @@ const routes = [
     name: 'characterIntroduction',
     component: () => import('../views/CharacterIntroductionView.vue'),
     meta: {
-      title: '理工杀维基-武将介绍',
+      metaInfo: {
+        title: '理工杀维基-武将介绍',
+        keywords: "vuex,vue-route",
+    		description: "本页面是武将介绍页面"
+      }
     },
   },
   {

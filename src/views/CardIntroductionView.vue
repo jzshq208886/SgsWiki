@@ -16,7 +16,9 @@
                         <p class="p-title top"><b>类型：</b>{{ type+subtype }}</p>
                         <p class="p-title"><b>效果：</b></p>
                         <div id="span4">
-                            <p class="p-skill">{{ trans[`${card}_info`] }}</p>
+                            <el-scrollbar max-height="220px">
+                                <p class="p-skill">{{ trans[`${card}_info`] }}</p>
+                            </el-scrollbar>
                         </div>
                     </div>
                 </div>
@@ -26,13 +28,17 @@
                     <h2 class="title">游戏牌选择</h2>
                 </div>
                 <div class="box-body">
-                    <ul class="side-card-list">
-                        <li v-for="(item, index) in cardsList" :key="index">
-                            <router-link :to="`/cardIntroduction/${item}`" >
-                                <card-li :name="item" :trans="trans[item]"/>
-                            </router-link>
-                        </li>
-                    </ul>
+                    <div id="span5">
+                        <el-scrollbar max-height="340px">
+                            <ul class="side-card-list">
+                                <li v-for="(item, index) in cardsList" :key="index">
+                                    <router-link :to="`/cardIntroduction/${item}`" >
+                                        <card-li :name="item" :trans="trans[item]"/>
+                                    </router-link>
+                                </li>
+                            </ul>
+                        </el-scrollbar>
+                    </div>
                 </div>
             </div>
         </div>
@@ -107,7 +113,12 @@ const cardsList = reactive(Object.keys(info).sort())
     max-height: 220px;
     /* margin-top: 16px; */
     align-items: center;
-    overflow-y: auto;
+    /* overflow-y: auto; */
+}
+
+#span5 {
+    margin-left: 56px;
+    margin-top: 36px;
 }
 
 .big-image {

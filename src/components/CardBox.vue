@@ -8,7 +8,7 @@
             <ul class="card-list">
                 <li v-for="(item, index) in cards" :key="index">
                     <router-link :to="`/${props.type}Introduction/${item}`">
-                        <card-li :name="item" :trans="trans[item]" />
+                        <card-li :name="item" :trans="trans[item]" image-height="158px" />
                     </router-link>
                 </li>
             </ul>
@@ -48,7 +48,6 @@ const cards = reactive(Object.keys(cardsInfo.info).sort())
 
 <style scoped>
 
-
 .selector {
     float: right;
     background-color: #eaeaea;
@@ -75,7 +74,7 @@ const cards = reactive(Object.keys(cardsInfo.info).sort())
 
 .card-list {
     list-style: none;
-    margin-left: 100px;
+    margin-left: 110px;
     margin-top: 54px;
     margin-bottom: 26px;
     clear: both;
